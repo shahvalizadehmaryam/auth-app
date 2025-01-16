@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-function User() {
+
   const userSchema = new Schema({
     email: {
       type: String,
@@ -17,6 +17,6 @@ function User() {
     },
   });
   const User = models.User | model("User", userSchema);
-}
+
 
 export default User;
