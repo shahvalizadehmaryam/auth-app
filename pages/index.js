@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <div>
-      <h3>Authentication app</h3>
+      <Link href="/signup">Signup</Link>
     </div>
   );
 }

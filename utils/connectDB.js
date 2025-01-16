@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
 
-async function connectDB() {
-  if (mongoose.connection[0].readyState) return;
-  mongoose.set("strictQuery", false);
+async function connectDb() {
+  // if it is connected so don't do anything
+  if (mongoose.connections[0].readyState) return;
   await mongoose.connect(process.env.MONGO_URI);
-  console.log("Connect to DB");
+  console.log("connected to db");
 }
-
-export default connectDB;
+export default connectDb;

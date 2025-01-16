@@ -1,12 +1,15 @@
-import connectDB from "../../../utils/connectDB";
 import User from "../../../models/User";
+import connectDb from "../../../utils/connectDb";
 import { hashPassword } from "../../../utils/hashPassword";
 
 async function handler(req, res) {
-  if (req.method !== "POST") return;
+  if (req.method !== "POST") {
+    return;
+  }
   try {
-    await connectDB();
+    await connectDb();
   } catch (error) {
+    console.log(error);
     return res
       .status(500)
       .json({ status: "failed", message: "Cannot connect to DB" });
@@ -15,7 +18,7 @@ async function handler(req, res) {
   if (!email || !password) {
     return res.status(422).json({ status: "failed", message: "Invalid data" });
   }
-  const existUser = await User.findOne({ email });
+  const existUser = await User.findOne({ email: email });
   if (existUser) {
     return res
       .status(422)
@@ -27,6 +30,6 @@ async function handler(req, res) {
   console.log(newUser);
   return res
     .status(201)
-    .json({ status: "Success", message: "user created successfully!" });
+    .json({ status: "success", message: "user created successfully!" });
 }
 export default handler;
