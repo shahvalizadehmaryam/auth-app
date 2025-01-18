@@ -1,10 +1,17 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  useEffect(() => {
+    fetch("/api/user")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") window.location.href = "/dashboard";
+      });
+  }, []);
   const signinHandler = async () => {
     const res = await fetch("/api/auth/signin", {
       method: "POST",
@@ -17,6 +24,7 @@ function signin() {
       router.push("/dashboard");
     }
   };
+
   return (
     <div>
       <h3>Signup Form</h3>

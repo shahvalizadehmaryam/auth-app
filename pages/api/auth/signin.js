@@ -35,7 +35,9 @@ async function handler(req, res) {
       .json({ status: "failed", message: "Email or Password is incorrect." });
   }
   // generate token
-  const token = sign({ email }, secretKey, { expiresIn: expiration });
+  const token = sign({ email }, secretKey, {
+    expiresIn: expiration,
+  });
   // by cookie library token set to cookie
   const serialized = {
     httpOnly: true,
